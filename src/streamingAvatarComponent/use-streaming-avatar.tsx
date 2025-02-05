@@ -126,6 +126,7 @@ export default function useStreamingAvatar(): UseStreamingAvatar {
             return;
         }
         try {
+            console.log(session)
             await repeat(
                 { session_id: session.data.session_id, text, task_mode: 'sync', task_type: 'repeat'},
                 {

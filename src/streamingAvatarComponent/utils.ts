@@ -153,12 +153,30 @@ export async function repeat(
             body: JSON.stringify(requestData)
         }).then(res => res.json());
         console.log('repeat response', response)
+        if(response.code===400006){
+            console.error('Bad Request detected. Reloading page...');
+            
+            // Optionally show an error message to the user
+            alert('Network error detected in RTC Heygen API. The page will reload.');
+
+            // Reload the page
+            window.location.reload();
+        }
         // const response: RepeatApiResponse = await measureExecutionTime(async () => (await axios.post(`${SERVER_URL}/v1/streaming.task`, requestData, { headers })).data.data, 'repeat')
         // console.log('repeat response', response)
         callbacks.onSuccess?.(response);
     } catch (e) {
         console.log('repeat Error', e)
         callbacks.onError?.(e);
+        if (e.response?.status === 400) {
+            console.error('Bad Request detected. Reloading page...');
+            
+            // Optionally show an error message to the user
+            alert('An error occurred (400 Bad Request). The page will reload.');
+
+            // Reload the page
+            window.location.reload();
+        }
     } finally {
         callbacks.onFinally?.();
     }

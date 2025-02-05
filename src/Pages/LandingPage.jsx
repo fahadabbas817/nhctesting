@@ -176,9 +176,10 @@ export default function App() {
     setMessages((prev) => [...prev, tempMessage]);
     // backend response from the api
     try {
-      const data = await chatService(prompt, convHistory, language);
+      await handleRepeat("Hellow how are you doing today?");
       setLoading(false);
-      await handleRepeat(data.Response);
+      const data = await chatService(prompt, convHistory, language);
+      // await handleRepeat(data.Response);
       console.log(data);
 
       //  state updateer to update the state to include current response from the api at the last index
@@ -210,9 +211,10 @@ export default function App() {
         },
       ]);
     } catch (error) {
+      console.log(error)
       console.log(error.message || "something went wrong");
       setInputValue("");
-      if (e.response?.status === 400) {
+      if (error.response?.status === 400) {
         console.error('Bad Request detected. Reloading page...');
         
         // Optionally show an error message to the user
