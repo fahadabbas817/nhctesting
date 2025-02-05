@@ -176,9 +176,9 @@ export default function App() {
     setMessages((prev) => [...prev, tempMessage]);
     // backend response from the api
     try {
-      await handleRepeat("Hellow how are you doing today?");
-      setLoading(false);
       const data = await chatService(prompt, convHistory, language);
+      setLoading(false);
+      await handleRepeat("Hello how are you doing today?");
       // await handleRepeat(data.Response);
       console.log(data);
 
