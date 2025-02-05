@@ -212,6 +212,15 @@ export default function App() {
     } catch (error) {
       console.log(error.message || "something went wrong");
       setInputValue("");
+      if (e.response?.status === 400) {
+        console.error('Bad Request detected. Reloading page...');
+        
+        // Optionally show an error message to the user
+        alert('An error occurred (400 Bad Request). The page will reload.');
+
+        // Reload the page
+        window.location.reload();
+      }
       // setMessages((prev) => {
       //   const updatedMessages = [...prev];
       //   updatedMessages[updatedMessages.length - 1] = {
